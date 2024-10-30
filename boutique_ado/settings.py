@@ -80,6 +80,8 @@ TEMPLATES = [
     },
 ]
 
+MESSAGES_BACKENDS = 'django.contrib.messages.session.SessionStorage'
+
 ## Added by Alauth Setup 1
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -97,7 +99,7 @@ ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True # exige email para fazer o registro
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory' # exige verificação do email do usuário para e-mail
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
-ACCOUNT_USERNAME_MIN_LENGTH = 4 
+ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/' # página de login do url
 LOGIN_REDIRECT_URL = '/' # página redirect do login url se e-mail válido
 

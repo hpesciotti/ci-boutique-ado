@@ -1,14 +1,11 @@
 from django.conf import settings
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
-import logging
-import stripe
 
 from checkout.webhook_handler import StripeWH_Handler
 
-# Configuração do logger
-logger = logging.getLogger(__name__)
+import stripe
 
 @require_POST
 @csrf_exempt
@@ -25,17 +22,16 @@ def webhook(request):
 
     try:
         event = stripe.Webhook.construct_event(
-            payload, sig_header, wh_secret
+        payload, sig_header, wh_secret
         )
     except ValueError as e:
-        logger.error(f"Invalid payload: {str(e)}")
-        return JsonResponse({"error": "Invalid payload"}, status=400)
+        # Invalid payload
+        return HttpResponse(status=400)
     except stripe.error.SignatureVerificationError as e:
-        logger.error(f"Signature verification failed: {str(e)}")
-        return JsonResponse({"error": "Signature verification failed"}, status=400)
+        # Invalid signature
+        return HttpResponse(status=400)
     except Exception as e:
-        logger.error(f"Unexpected error: {str(e)}")
-        return JsonResponse({"error": "Unexpected error"}, status=400)
+        return HttpResponse(content=e, status=400)
 
     # Set up a webhook handler
     handler = StripeWH_Handler(request)

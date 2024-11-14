@@ -100,7 +100,7 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-SITE_ID = 1 ## Added by Alauth Setup 1
+SITE_ID = 1 ## Added by AllAuth Setup 1
 
 # Added by Alauth Setup2
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

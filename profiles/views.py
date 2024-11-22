@@ -8,6 +8,7 @@ from checkout.models import Order
 
 def profile(request):
     """ Display the user's profile. """
+    
     profile = get_object_or_404(UserProfile, user=request.user)
 
     if request.method == 'POST':
@@ -15,6 +16,10 @@ def profile(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully')
+        else:
+            message.error(request, 'Update failed. Plesse ensure the form is valid.')
+    else:
+        form = UserProfileForm(instance=profile)
 
     form = UserProfileForm(instance=profile)
     orders = profile.orders.all()
@@ -30,6 +35,9 @@ def profile(request):
 
 
 def order_history(request, order_number):
+    """
+    Adds order history to user profile
+    """
     order = get_object_or_404(Order, order_number=order_number)
 
     messages.info(request, (

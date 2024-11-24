@@ -10,10 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-import os
-import env
-import dj_database_url
 from pathlib import Path
+import os
+import dj_database_url
+if os.path.isfile('env.py'):
+    import env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +30,7 @@ SECRET_KEY = 'django-insecure-z#v#t=wynu9v3yq0srg0!n3h$n4pry))h=ad0ani)20ci5(ky3
 DEBUG = True
 
 ALLOWED_HOSTS = ['8000-hpesciotti-ciboutiquead-z9n7213z2zd.ws.codeinstitute-ide.net',
-'boutique-ado-ci-hpesciotti-e79c6a190074.herokuapp.com']
+'.herokuapp.com']
 
 
 # Application definition
@@ -178,6 +179,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.codeinstitute-ide.net/",
+    "https://*.herokuapp.com"
+]
 
 # Stripe
 FREE_DELIVERY_THRESHOLD = 50
